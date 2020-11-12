@@ -14,6 +14,7 @@ import java.util.List;
  *
  */
 public interface weighted_graph_algorithms {
+	
     /**
      * Init the graph on which this set of algorithms operates on.
      * @param g
@@ -25,17 +26,20 @@ public interface weighted_graph_algorithms {
      * @return
      */
     public weighted_graph getGraph();
+    
     /**
      * Compute a deep copy of this weighted graph.
      * @return
      */
     public weighted_graph copy();
+    
     /**
      * Returns true if and only if (iff) there is a valid path from EVREY node to each
      * other node. NOTE: assume ubdirectional graph.
      * @return
      */
     public boolean isConnected();
+    
     /**
      * returns the length of the shortest path between src to dest
      * Note: if no such path --> returns -1
@@ -44,6 +48,7 @@ public interface weighted_graph_algorithms {
      * @return
      */
     public double shortestPathDist(int src, int dest);
+    
     /**
      * returns the the shortest path between src to dest - as an ordered List of nodes:
      * src--> n1-->n2-->...dest
@@ -54,6 +59,7 @@ public interface weighted_graph_algorithms {
      * @return
      */
     public List<node_info> shortestPath(int src, int dest);
+    
 
     /**
      * Saves this weighted (undirected) graph to the given
