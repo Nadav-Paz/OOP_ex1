@@ -20,7 +20,7 @@ public class WGraph_Algo implements weighted_graph_algorithms {
 	private int mode_counter;
 	
 	public WGraph_Algo() {
-		this.g = null;
+		this.g = new WGraph_DS(); // will be overwritten, using to avoid null exceptions
 		this.src = null;
 		this.node_parents = new HashMap<node_info, node_info>();
 		this.mode_counter = -1;
