@@ -76,12 +76,11 @@ public class WGraph_DS implements weighted_graph, Serializable{
 	public void connect(int node1, int node2, double w) {
 		if(getNode(node1) == null || getNode(node2) == null)
 			return;
-		Edge edge = ((NodeInfo)getNode(node1)).neigbors.get(node2);
 
-		this.mode_counter++;
-
+		Edge edge = ((NodeInfo)this.verticies.get(node1)).neigbors.get(node2);
+		
 		if(edge == null) 
-			edge = new Edge(node1, node2, w);
+			new Edge(node1, node2, w);
 		else
 			this.edges.put(edge, w < 0 ? 0 : w);
 	}
@@ -170,9 +169,9 @@ public class WGraph_DS implements weighted_graph, Serializable{
 	public boolean equals(Object o) {
 		if(!(o instanceof weighted_graph))
 			return false;
-		
+
 		weighted_graph g = (weighted_graph)o;
-		
+
 		// verifing equal edge size
 		if(g.edgeSize() != this.edges.size())
 			return false;
@@ -255,6 +254,11 @@ public class WGraph_DS implements weighted_graph, Serializable{
 			return 0;
 		}
 
+		@Override
+		public String toString() {
+			return "[" + this.key + ", " + this.tag + ", " + this.info + "]\n" + this.neigbors + "\n";
+		}
+		
 	}
 
 	protected class Edge implements Serializable{
@@ -267,6 +271,7 @@ public class WGraph_DS implements weighted_graph, Serializable{
 				this.node2 = (NodeInfo) verticies.get(node2);
 				this.node1.neigbors.put(node2, this);
 				this.node2.neigbors.put(node1, this);
+
 				w = w < 0 ? 0 : w;
 				edges.put(this, w);
 			}
@@ -297,7 +302,7 @@ public class WGraph_DS implements weighted_graph, Serializable{
 			this.node2.neigbors.remove(node1.getKey());
 			edges.remove(this);
 		}
-		
+
 		@Override
 		public boolean equals(Object o) {
 			if(!(o instanceof Edge))
@@ -306,7 +311,12 @@ public class WGraph_DS implements weighted_graph, Serializable{
 				return false;
 			Edge edge = (Edge)o;
 			return (edge.node1.key == this.node1.key && edge.node2.key == this.node2.key) ||
-					 (edge.node1.key == this.node2.key && edge.node2.key == this.node1.key);
+					(edge.node1.key == this.node2.key && edge.node2.key == this.node1.key);
+		}
+
+		@Override
+		public String toString() {
+			return "{"+ this.node1.key + ", " + this.node2.key + ": " + edges.get(this) + "}";
 		}
 	}
 }
